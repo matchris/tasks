@@ -8,17 +8,17 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TasksApplication {
 
     public static void main(String[] args) {
-		TaskDto taskDto = new TaskDto(
-				(long) 1,
-				"Test title",
-				"I want to be coder!"
-		);
-		Long id = taskDto.getId();
-		String title = taskDto.getTitle();
-		String content = taskDto.getContent();
+//		TaskDto taskDto = new TaskDto(
+//				(long) 1,
+//				"Test title",
+//				"I want to be coder!"
+//		);
+//		Long id = taskDto.getId();
+//		String title = taskDto.getTitle();
+//		String content = taskDto.getContent();
+//
+//		System.out.println(id + " " + title + " " + content);
 
-		System.out.println(id + " " + title + " " + content);
-
-        //SpringApplication.run(TasksApplication.class, args);
+        SpringApplication.run(TasksApplication.class, args);
     }
 }
