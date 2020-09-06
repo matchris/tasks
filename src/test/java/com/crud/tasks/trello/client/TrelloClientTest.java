@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.lenient;
+
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -83,7 +83,7 @@ public class TrelloClientTest {
         //Given
 
         URI uri = new URI("http://test.com/members/username/boards?key=appkey&token=usertokent&fields=name,id&lists=all");
-        lenient().when(restTemplate.getForObject(uri, TrelloBoardDto[].class)).thenReturn(null);
+        restTemplate.getForObject(uri, TrelloBoardDto[].class);
         //When
         List<TrelloBoardDto> trelloBoardsWithNoContent = trelloClient.getTrelloBoards();
         //Then
