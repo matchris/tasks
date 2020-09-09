@@ -29,7 +29,7 @@ public class EmailScheduler {
     public void sendInformationEmail() {
 long size = taskRepository.count();
 if (size >=2) {
-    namedTask ="taskskdkdk";
+    namedTask ="tasks";
 } else {
     namedTask = "task";
 }
