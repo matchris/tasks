@@ -10,10 +10,10 @@ public class Mail {
     private String subject;
     private String message;
     private String toCc;
-//    public Mail(String mailTo,String subject,String message){   //tylko dla dodatkowych testów
-//        this.mailTo = mailTo;
-//        this.subject = subject;
-//        this.message = message;
-//    }
+    public Mail(String mailTo,String subject,String message){   //tylko dla dodatkowych testów
+        this.mailTo = mailTo;
+        this.subject = subject;
+        this.message = message;
+    }
 }
 
