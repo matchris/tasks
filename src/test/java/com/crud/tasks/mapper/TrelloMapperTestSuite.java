@@ -2,13 +2,10 @@ package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,7 +31,6 @@ public class TrelloMapperTestSuite {
 
         //When
         List<TrelloBoard> trelloBoards = mapper.mapToBoards(trelloBoardDto);
-
         //Then
         assertEquals(3, trelloBoards.size());
         assertEquals("Board2", trelloBoards.get(1).getId());
@@ -103,7 +99,6 @@ public class TrelloMapperTestSuite {
     }
 
 
-
     @Test
     public void mapToCard() {
         //Given
@@ -129,5 +124,4 @@ public class TrelloMapperTestSuite {
         assertEquals("3rd", trelloCard.getPos());
         assertEquals("List3", trelloCard.getListId());
     }
-
 }

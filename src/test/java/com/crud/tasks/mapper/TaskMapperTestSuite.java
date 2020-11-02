@@ -23,7 +23,6 @@ public class TaskMapperTestSuite {
     private Task task1;
     private Task task2;
     private Task task3;
-
     List<TaskDto> taskDtosList;
     List<Task> taskList;
 
