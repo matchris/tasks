@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
 
@@ -18,21 +20,37 @@ public class SimpleEmailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Autowired
+    private MailCreatorService mailCreatorService;
+
     public void send(final Mail mail) {
         LOGGER.info("Starting email preparation...");
 
         try {
-            SimpleMailMessage mailMessage = createMailMessage(mail);
-            javaMailSender.send(mailMessage);
+            MimeMessagePreparator createMimeMessage = createMimeMessage(mail);
+            javaMailSender.send(createMimeMessage);
+//            SimpleMailMessage mailMessage = createMailMessage(mail);
+//            javaMailSender.send(mailMessage);
             LOGGER.info("Email has been sent.");
         } catch (MailException e) {
-            LOGGER.info("Failed to precess email sending: ", e.getMessage(),e);
+            LOGGER.info("Failed to precess email sending: ", e.getMessage(), e);
         }
     }
 
+
+    private MimeMessagePreparator createMimeMessage(final Mail mail) {
+        return mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+            messageHelper.setTo(mail.getMailTo());
+            messageHelper.setSubject(mail.getSubject());
+            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+        };
+    }
+
+
     private SimpleMailMessage createMailMessage(final Mail mail) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        if(mail.getToCc()!=null)
+        if (mail.getToCc() != null)
             mailMessage.setCc(mail.getToCc());
         mailMessage.setTo(mail.getMailTo());
         mailMessage.setSubject(mail.getSubject());
