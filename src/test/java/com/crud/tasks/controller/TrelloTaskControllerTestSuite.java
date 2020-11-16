@@ -66,14 +66,14 @@ public class TrelloTaskControllerTestSuite {
         when(dbService.getAllTasks()).thenReturn(tasks);
         when(taskMapper.mapToTaskDtoList(tasks)).thenReturn(taskDtos);
         //When & Then
-        mockMvc.perform(get("/v1/task/getTasks")
+        mockMvc.perform(get("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(5)))
                 .andExpect(jsonPath("$[0].id", is(1)))
                 .andExpect(jsonPath("$[0].title", is("title:1")))
                 .andExpect(jsonPath("$[0].content", is("content:1")));
-        mockMvc.perform(get("/v1/task/getTasks")
+        mockMvc.perform(get("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(5)))
@@ -93,7 +93,7 @@ public class TrelloTaskControllerTestSuite {
         when(dbService.getTask(anyLong())).thenReturn(Optional.of(task));
         when(taskMapper.mapToTaskDto(task)).thenReturn(taskDto);
         //When & Then
-        mockMvc.perform(get("/v1/task/getTask")
+        mockMvc.perform(get("/v1/tasks/5")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("taskId", "5"))
                 .andExpect(status().isOk())
@@ -109,7 +109,7 @@ public class TrelloTaskControllerTestSuite {
         //Given
         doNothing().when(dbService).deleteTaskById(7L);
         //When & Then
-        mockMvc.perform(delete("/v1/task/deleteTask")
+        mockMvc.perform(delete("/v1/tasks/7")
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("taskId", "7"))
                 .andExpect(status().is(200));
@@ -124,7 +124,7 @@ public class TrelloTaskControllerTestSuite {
         when(dbService.saveTask(any(Task.class))).thenReturn(task);
 
         //When&Then
-        mockMvc.perform(post("/v1/task/createTask")
+        mockMvc.perform(post("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
@@ -140,7 +140,7 @@ public class TrelloTaskControllerTestSuite {
         when(taskMapper.mapToTaskDto(any(Task.class))).thenReturn(taskDto);
         when(dbService.saveTask(any(Task.class))).thenReturn(task);
         //when&then
-        mockMvc.perform(put("/v1/task/updateTask")
+        mockMvc.perform(put("/v1/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(jsonContent))
